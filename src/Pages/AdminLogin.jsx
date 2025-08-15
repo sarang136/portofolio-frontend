@@ -16,13 +16,12 @@ const AdminLogin = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    // setError('');
     try {
-      const response = await fetch('https://portofolio-backend-ex4b.onrender.com/admin-login', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admin-login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,6 +29,8 @@ const AdminLogin = () => {
         credentials: 'include',
         body: JSON.stringify(form),
       });
+      console.log(form)
+      localStorage.setItem("user" , form.email)
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');

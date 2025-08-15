@@ -50,7 +50,7 @@ const Dashboard = () => {
   // Fetch all projects on mount and after add/edit
   const fetchProjects = async () => {
     try {
-      const res = await fetch('https://portofolio-backend-ex4b.onrender.com/get-all-projects');
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/get-all-projects`);
       const data = await res.json();
       setProjects(Array.isArray(data.projects) ? data.projects : []);
     } catch (err) {
@@ -63,7 +63,7 @@ const Dashboard = () => {
     setSkillsLoading(true);
     setSkillsError('');
     try {
-      const res = await fetch('https://portofolio-backend-ex4b.onrender.com/get/skills');
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/get/skills`);
       const data = await res.json();
       setSkills(Array.isArray(data.skillsGot) ? data.skillsGot : []);
     } catch (err) {
@@ -79,7 +79,7 @@ const Dashboard = () => {
     setExperienceLoading(true);
     setExperienceError('');
     try {
-      const res = await fetch('https://portofolio-backend-ex4b.onrender.com/get/experience');
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/get/experience`);
       const data = await res.json();
       setExperience(Array.isArray(data.expGot) ? data.expGot : []);
     } catch (err) {
@@ -132,7 +132,7 @@ const Dashboard = () => {
         .filter((skill) => skill.length > 0);
 
       if (editMode && editId) {
-        const response = await fetch(`https://portofolio-backend-ex4b.onrender.com/edit-project/${editId}`, {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/edit-project/${editId}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const Dashboard = () => {
         setEditId(null);
         await fetchProjects();
       } else {
-        const response = await fetch('https://portofolio-backend-ex4b.onrender.com/add-project', {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/add-project`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -224,7 +224,7 @@ const Dashboard = () => {
     setSkillsLoading(true);
     setSkillsError('');
     try {
-      const response = await fetch('https://portofolio-backend-ex4b.onrender.com/add/skills', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/add/skills`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newSkill),
@@ -268,7 +268,7 @@ const Dashboard = () => {
     setExperienceLoading(true);
     setExperienceError('');
     try {
-      const response = await fetch('https://portofolio-backend-ex4b.onrender.com/post/experience', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/post/experience`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newExperience),

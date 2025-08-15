@@ -24,7 +24,7 @@ const AdminRegister = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch('https://portofolio-backend-ex4b.onrender.com/admin-register', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admin-register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

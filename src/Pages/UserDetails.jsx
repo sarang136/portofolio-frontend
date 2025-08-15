@@ -13,6 +13,9 @@ const UserDetails = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const email = localStorage.getItem('user');
+    // console.log(email);
+
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
         setError('');
@@ -23,16 +26,22 @@ const UserDetails = () => {
         setLoading(true);
         setError('');
         try {
-            fetch("https://your-backend.onrender.com/some-route", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form)
-            });
-            if (!res.ok) {
-                throw new Error('Failed to submit details');
+            if (email !== form.email) {
+                alert("Email Invalid");
             }
-            navigate('/admin/dashboard');
+            else {
+                const res = fetch(`${import.meta.env.VITE_BASE_URL}/post-yourself`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(form)
+                });
+                if (!res) {
+                    throw new Error('Failed to submit details');
+                }
+                navigate('/admin/dashboard');
+            }
+
         } catch (err) {
             setError(err.message || 'Something went wrong');
         } finally {

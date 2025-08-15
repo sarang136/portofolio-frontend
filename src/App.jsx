@@ -11,22 +11,26 @@ import Footer from './components/Footer'
 import UserDetails from './Pages/UserDetails'
 
 const App = () => {
+
+  const email = localStorage.getItem('user')
+  console.log(email)
+
   return (
     <div>
       <Routes>
         <Route path='/' element=<div>
 
-          <LandingPage/>
+          <LandingPage />
           <Projects />
           <Skills />
-          <Experience/>
-          <Footer/>
+          <Experience />
+          <Footer />
 
         </div> />
         <Route path='/admin/register' element={<AdminRegister />} />
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin/post-yourself' element={<UserDetails />} />
-        <Route path='/admin/dashboard' element={<Dashboard />} />
+        <Route path='/admin/dashboard' element={<div>{email ? <Dashboard /> : "Bye Bye, Beta You need to login first "}</div>} />
       </Routes>
     </div>
   )
